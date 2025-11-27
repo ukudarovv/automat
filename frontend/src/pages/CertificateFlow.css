@@ -1,0 +1,7 @@
+.certificate-flow {
+  padding: 20px;
+  min-height: 100vh;
+  background: var(--tg-theme-bg-color, #ffffff);
+  color: var(--tg-theme-text-color, #000000);
+}
+

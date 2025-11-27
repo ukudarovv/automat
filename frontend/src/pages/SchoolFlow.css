@@ -1,0 +1,120 @@
+.school-flow {
+  padding: 20px;
+  min-height: 100vh;
+  background: var(--tg-theme-bg-color, #ffffff);
+  color: var(--tg-theme-text-color, #000000);
+}
+
+.step-content h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: var(--tg-theme-text-color, #000000);
+}
+
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.option-button {
+  padding: 16px;
+  border: 1px solid var(--tg-theme-hint-color, #e0e0e0);
+  border-radius: 8px;
+  background: var(--tg-theme-bg-color, #ffffff);
+  color: var(--tg-theme-text-color, #000000);
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.2s;
+}
+
+.option-button:active {
+  background: var(--tg-theme-button-color, #2481cc);
+  color: var(--tg-theme-button-text-color, #ffffff);
+}
+
+.option-button.large {
+  padding: 20px;
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.schools-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.school-card {
+  padding: 16px;
+  border: 1px solid var(--tg-theme-hint-color, #e0e0e0);
+  border-radius: 12px;
+  background: var(--tg-theme-bg-color, #ffffff);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.school-card:active {
+  background: var(--tg-theme-hint-color, #f0f0f0);
+}
+
+.school-name {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--tg-theme-text-color, #000000);
+}
+
+.school-rating {
+  font-size: 14px;
+  color: var(--tg-theme-hint-color, #999999);
+  margin-bottom: 4px;
+}
+
+.school-address {
+  font-size: 14px;
+  color: var(--tg-theme-hint-color, #999999);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-input {
+  padding: 16px;
+  border: 1px solid var(--tg-theme-hint-color, #e0e0e0);
+  border-radius: 8px;
+  font-size: 16px;
+  background: var(--tg-theme-bg-color, #ffffff);
+  color: var(--tg-theme-text-color, #000000);
+}
+
+.submit-button {
+  padding: 16px;
+  border: none;
+  border-radius: 8px;
+  background: var(--tg-theme-button-color, #2481cc);
+  color: var(--tg-theme-button-text-color, #ffffff);
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.submit-button:active {
+  opacity: 0.8;
+}
+
+.submit-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+

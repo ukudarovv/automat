@@ -1,0 +1,41 @@
+.instructor-flow {
+  padding: 20px;
+  min-height: 100vh;
+  background: var(--tg-theme-bg-color, #ffffff);
+  color: var(--tg-theme-text-color, #000000);
+}
+
+.instructors-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.instructor-card {
+  padding: 16px;
+  border: 1px solid var(--tg-theme-hint-color, #e0e0e0);
+  border-radius: 12px;
+  background: var(--tg-theme-bg-color, #ffffff);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.instructor-card:active {
+  background: var(--tg-theme-hint-color, #f0f0f0);
+}
+
+.instructor-name {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--tg-theme-text-color, #000000);
+}
+
+.instructor-rating,
+.instructor-type,
+.instructor-phone {
+  font-size: 14px;
+  color: var(--tg-theme-hint-color, #999999);
+  margin-bottom: 4px;
+}
+
