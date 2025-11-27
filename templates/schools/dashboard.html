@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Панель управления - {{ school.name }}{% endblock %}
+{% block header %}Панель управления - {{ school.name }}{% endblock %}
+
+{% block dashboard_url %}{% url 'schools:dashboard' %}{% endblock %}
+{% block applications_url %}{% url 'schools:applications' %}{% endblock %}
+
+{% block content %}
+<h2>Статистика</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 20px;">
+    <div style="background: #ecf0f1; padding: 20px; border-radius: 8px;">
+        <h3 style="color: #2c3e50;">Всего заявок</h3>
+        <p style="font-size: 32px; font-weight: bold; color: #3498db;">{{ applications_count }}</p>
+    </div>
+    <div style="background: #ecf0f1; padding: 20px; border-radius: 8px;">
+        <h3 style="color: #2c3e50;">Новые</h3>
+        <p style="font-size: 32px; font-weight: bold; color: #f39c12;">{{ new_applications }}</p>
+    </div>
+    <div style="background: #ecf0f1; padding: 20px; border-radius: 8px;">
+        <h3 style="color: #2c3e50;">Оплачено</h3>
+        <p style="font-size: 32px; font-weight: bold; color: #27ae60;">{{ paid_applications }}</p>
+    </div>
+</div>
+
+<div style="margin-top: 30px;">
+    <a href="{% url 'schools:applications' %}" class="btn">Просмотреть все заявки</a>
+</div>
+{% endblock %}
+

@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}Заявка #{{ application.id }}{% endblock %}
+{% block header %}Заявка #{{ application.id }}{% endblock %}
+
+{% block dashboard_url %}{% url 'instructors:dashboard' %}{% endblock %}
+{% block applications_url %}{% url 'instructors:applications' %}{% endblock %}
+
+{% block content %}
+<h2>Детали заявки</h2>
+
+<div style="margin-top: 30px;">
+    <div class="form-group">
+        <label>Имя:</label>
+        <p style="font-size: 18px;">{{ application.student_name }}</p>
+    </div>
+    <div class="form-group">
+        <label>Телефон:</label>
+        <p style="font-size: 18px;">
+            <a href="tel:{{ application.student_phone }}">{{ application.student_phone }}</a>
+        </p>
+    </div>
+    <div class="form-group">
+        <label>Город:</label>
+        <p>{{ application.city.name }}</p>
+    </div>
+    <div class="form-group">
+        <label>Время:</label>
+        <p>
+            {% if application.time_slot %}
+                {{ application.time_slot|date:"d.m.Y H:i" }}
+            {% else %}
+                Любое удобное время
+            {% endif %}
+        </p>
+    </div>
+    <div class="form-group">
+        <label>Статус:</label>
+        <p>
+            <span class="status status-{{ application.status }}">
+                {{ application.get_status_display }}
+            </span>
+        </p>
+    </div>
+    <div class="form-group">
+        <label>Дата создания:</label>
+        <p>{{ application.created_at|date:"d.m.Y H:i" }}</p>
+    </div>
+</div>
+
+<div style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #ddd;">
+    <h3>Действия</h3>
+    
+    {% if application.status == 'new' %}
+    <form method="post" action="{% url 'instructors:accept' application.pk %}" style="display: inline-block; margin-right: 10px;">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success">Принять</button>
+    </form>
+    
+    <form method="post" action="{% url 'instructors:reject' application.pk %}" style="display: inline-block;">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Отказать</button>
+    </form>
+    {% endif %}
+    
+    {% if application.status == 'confirmed' %}
+    <form method="post" action="{% url 'instructors:complete' application.pk %}" style="display: inline-block;">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success">Отметить как проведенный</button>
+    </form>
+    {% endif %}
+    
+    <div style="margin-top: 20px;">
+        <a href="https://wa.me/{{ application.student_phone|slice:'1:' }}?text=Здравствуйте! Это {{ instructor.name }}" 
+           target="_blank" 
+           class="btn" 
+           style="background: #25D366;">
+            💬 Написать в WhatsApp
+        </a>
+    </div>
+</div>
+{% endblock %}
+

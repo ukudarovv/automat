@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Панель управления - {{ instructor.name }}{% endblock %}
+{% block header %}Панель управления - {{ instructor.name }}{% endblock %}
+
+{% block dashboard_url %}{% url 'instructors:dashboard' %}{% endblock %}
+{% block applications_url %}{% url 'instructors:applications' %}{% endblock %}
+
+{% block content %}
+<h2>Статистика</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 20px;">
+    <div style="background: #ecf0f1; padding: 20px; border-radius: 8px;">
+        <h3 style="color: #2c3e50;">Ожидают</h3>
+        <p style="font-size: 32px; font-weight: bold; color: #f39c12;">{{ pending }}</p>
+    </div>
+    <div style="background: #ecf0f1; padding: 20px; border-radius: 8px;">
+        <h3 style="color: #2c3e50;">Завершено</h3>
+        <p style="font-size: 32px; font-weight: bold; color: #27ae60;">{{ completed }}</p>
+    </div>
+</div>
+
+<h3 style="margin-top: 30px;">Последние заявки</h3>
+<table style="margin-top: 20px;">
+    <thead>
+        <tr>
+            <th>Имя</th>
+            <th>Телефон</th>
+            <th>Статус</th>
+            <th>Дата</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for application in applications %}
+        <tr>
+            <td>{{ application.student_name }}</td>
+            <td>{{ application.student_phone }}</td>
+            <td>
+                <span class="status status-{{ application.status }}">
+                    {{ application.get_status_display }}
+                </span>
+            </td>
+            <td>{{ application.created_at|date:"d.m.Y" }}</td>
+            <td>
+                <a href="{% url 'instructors:application_detail' application.pk %}" class="btn">Подробнее</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5" style="text-align: center; padding: 40px;">
+                Заявок нет
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div style="margin-top: 20px;">
+    <a href="{% url 'instructors:applications' %}" class="btn">Просмотреть все заявки</a>
+</div>
+{% endblock %}
+
