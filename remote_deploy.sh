@@ -53,18 +53,8 @@ if [ ! -f .env.production ]; then
     fi
 fi
 
-# Build React app
-echo "📦 Building React app..."
-if [ -d "frontend" ]; then
-    cd frontend
-    if [ ! -d "node_modules" ]; then
-        npm install
-    fi
-    npm run build
-    cd ..
-else
-    echo "⚠️  frontend directory not found, skipping build"
-fi
+# Build React app (will be built in Docker)
+echo "📦 React app will be built in Docker container..."
 
 # Build and start Docker containers
 echo "🐳 Building Docker images..."

@@ -25,13 +25,10 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    env_file:
+      - .env.production
     environment:
       - DATABASE_URL=postgresql://${POSTGRES_USER:-avtomat_user}:${POSTGRES_PASSWORD:-avtomat_password}@db:5432/${POSTGRES_DB:-avtomat_db}
-      - SECRET_KEY=${SECRET_KEY}
-      - DEBUG=${DEBUG:-False}
-      - ALLOWED_HOSTS=${ALLOWED_HOSTS:-194.110.54.230,localhost}
-      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
-      - MINI_APP_URL=${MINI_APP_URL:-https://194.110.54.230}
     volumes:
       - static_volume:/app/staticfiles
     restart: unless-stopped
@@ -61,11 +58,13 @@ services:
       - frontend
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      - static_volume:/usr/share/nginx/html:ro
+      - static_volume:/usr/share/nginx/html/staticfiles:ro
+      - frontend_static:/usr/share/nginx/html:ro
       - ./ssl:/etc/nginx/ssl:ro
     restart: unless-stopped
 
 volumes:
   postgres_data:
   static_volume:
+  frontend_static:
 
