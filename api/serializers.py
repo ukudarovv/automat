@@ -3,6 +3,7 @@ Serializers for API.
 """
 from rest_framework import serializers
 from core.models import City, School, Instructor, Application, User
+from django.db import models
 
 
 class CitySerializer(serializers.ModelSerializer):
@@ -45,8 +46,20 @@ class ApplicationSerializer(serializers.ModelSerializer):
     school_name = serializers.CharField(source='school.name', read_only=True, allow_null=True)
     instructor_name = serializers.CharField(source='instructor.name', read_only=True, allow_null=True)
     city_name = serializers.CharField(source='city.name', read_only=True)
-    format_display = serializers.CharField(source='get_format_display', read_only=True)
-    status_display = serializers.CharField(source='get_status_display', read_only=True)
+    format_display = serializers.SerializerMethodField()
+    status_display = serializers.SerializerMethodField()
+    
+    def get_format_display(self, obj):
+        """Get format display name."""
+        if obj.format:
+            return dict(Application.FORMAT_CHOICES).get(obj.format, obj.format)
+        return None
+    
+    def get_status_display(self, obj):
+        """Get status display name."""
+        if obj.status:
+            return dict(Application.STATUS_CHOICES).get(obj.status, obj.status)
+        return None
     
     class Meta:
         model = Application
