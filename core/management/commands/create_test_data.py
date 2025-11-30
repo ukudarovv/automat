@@ -86,7 +86,11 @@ class Command(BaseCommand):
         for school_data in schools_data:
             city = cities[school_data['city']]
             # Create user for school
-            username = f"school_{school_data['name'].lower().replace(' ', '_').replace('"', '').replace('«', '').replace('»', '')}"
+            # Clean username from special characters
+            name_clean = school_data['name'].lower().replace(' ', '_')
+            name_clean = name_clean.replace('"', '').replace("'", '')
+            name_clean = name_clean.replace('\u00AB', '').replace('\u00BB', '')  # « and »
+            username = f"school_{name_clean}"
             user, user_created = User.objects.get_or_create(
                 username=username,
                 defaults={
