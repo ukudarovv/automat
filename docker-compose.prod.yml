@@ -36,6 +36,23 @@ services:
              python manage.py create_test_data || true &&
              gunicorn core.wsgi:application --bind 0.0.0.0:8000 --workers 2"
 
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: avtomat_bot
+    depends_on:
+      db:
+        condition: service_healthy
+      backend:
+        condition: service_started
+    env_file:
+      - .env.production
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-avtomat_user}:${POSTGRES_PASSWORD:-avtomat_password}@db:5432/${POSTGRES_DB:-avtomat_db}
+    restart: unless-stopped
+    command: python bot/main.py
+
   frontend:
     build:
       context: ./frontend
