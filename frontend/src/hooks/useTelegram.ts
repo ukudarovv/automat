@@ -121,8 +121,10 @@ export interface TelegramUser {
   username?: string;
 }
 
+type TelegramWebApp = NonNullable<Window['Telegram']>['WebApp'];
+
 export const useTelegram = () => {
-  const [webApp, setWebApp] = useState<Window['Telegram']['WebApp'] | null>(null);
+  const [webApp, setWebApp] = useState<TelegramWebApp | null>(null);
   const [user, setUser] = useState<TelegramUser | null>(null);
   const [isReady, setIsReady] = useState(false);
 
